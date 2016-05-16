@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>It's all about GEODATA!</title>
+		
+		<!-- Setting some metadata -->
+		<meta charset="utf-8">
+		<meta name="description" content="Real-time web assignment for INF133">
+		<meta name="author" content="David Garc�a Santacruz">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<meta http-equiv="refresh" content="30">-->
+		
+		<!-- Include the jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- Incorporate the Bootstrap JavaScript plugins -->
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    
+		<!-- Including Google Maps library -->
+		<script src="//maps.googleapis.com/maps/api/js?sensor=false&language=en&region=US"></script>
+		<!-- Including the jQuery and the CSS -->
+		<script src="myJavascriptMap.js"></script>
+		<link rel="stylesheet" type="text/css" href="myCSS.css"/>
+	</head>
+
+	
+	<body>
+		<header>
+			<h1> It's all about GEODATA! <span class="glyphicon glyphicon-map-marker"></span> </h1>  
+		</header>
+	  
+		<!-- DESCRIPTION -->
+		<div class="content">
+		    <h2> Description </h3>
+		    <p> For this <b>real-time web</b> project, I will be first identifying five data sources that contain geodata coming from different domains. Then, I will be explaining how I parsed the data sources which I decided to present in the website. Finally, I will display a selected part of the content of three of those feeds, particularly, feeds that use different techniques (namely XML, JSON and JSONP). The way to show this data in the website is through responsive design with Bootstrap: each entry in the feed will have a responsive row, added dynamically to the HTML. </p>
+			
+			<p> For the <b>real-time map</b> project, I will be completing the real-time web from the previous assignment. In order to do so, I will be adding a map for each of the sources displayed. This map will stand next to the information displayed for the feeds, to the right. The way I do this is using a two-column row from Bootstrap: in the first column lies the map, in the second the data. In turn, the data is also organized in a set of multiple-column rows in Bootstrap. The main difference is that the map and the data never stack (they have a fixed width) whereas the columns of the data can stack (they are responsive). </br>
+			First, in order to make the map fit well with the data content I decided to add to each data container a scroll bar if the content occupied more than the height of the map. This way, the user can always see the data and the map together (otherwise the last entries of the data would be quite lower and they would not be displayed next to the map). Furthermore, the map is hybrid (both satellite and road) and it is centered in the US, allowing to see the whole country when first loaded.</br>
+			Then, for each source I added a marker to the corresponding map per each result when the data is being parsed. In this way, there is a visual representation of the position of the feed result in the map corresponding to that data source. </br>
+			Next, for each feed result of each source I added a button in the "location" section which allows the user to center the map in that point (where there is also a marker, as mentioned) when clicking on it. This action also causes the map to have its zoom reset to 8. </br>
+			Finally, I worked mainly on two different enhancements for the maps: custom markers and info windows. In each of the maps I will include a custom marker representing the location of each of the feed results. 
+			<ul>
+				<li><b>Earthquakes</b>: I created a custom icon image for the earthquakes myself, showing an earthquake signal graphic in the pin. Moreover, I decided to add a "bounce" animation to each marker for the earthquakes as I find the "bounce" movement fits quite well the earthquake concept. The way I made this "bounce" animation to work is as follows: when you load the map, all the earthquake icons are bouncing.</li>
+				<li><b>Jobs</b>: I created a custom icon image for the jobs myself, showing a briefcase graphic in the pin. Moreover, I decided to add a "drop" animation to each marker for the jobs, so that they will be dropped from the top of the map at the time of initialization of the map. However, for the maps I also included an info window. The reason for which I did this is that now, as the map is standing next to the data, there is less space for the data itself and when the screen size shrinks the information looks very condensed. The easiest way to solve this is to display the offer information (title and description) in an info window when clicking on the corresponding marker. As a result the "description" column from the jobs feed disappears in comparison to the real-time web assignment to allow its content to be displayed in individual markers.</li>
+				<li><b>Instagram</b>: I created a custom icon image for Instagram myself, showing the Instagram logo in the pin. Moreover, I decided to add a "bounce" animation to each marker for Instagram. The way I made this "bounce" animation to work is as follows: when you load the map, all the Instagram icons are bouncing, similarly to the earthquake icons. Furthermore, in this case only Instagram pictures with location are displayed (in the real-time web assignment Instagram pictures were shown with or without location, if they didn't have a location, a message was shown instead to inform of such event). However, I find it better to only display the ones with locations so that a marker can be created. </li>
+			</ul>
+			</p>	 
+				
+				
+		</div>
+		
+		<hr/>
+		
+		<!-- DATA SOURCES -->
+		<div class="content">
+			<h2> Data sources </h3>
+			<p> These are the data sources with geodata that I have selected for the assignment: </p>
+	  
+			<ol>
+				<li> <a href = http://www.indeed.com/opensearch?q=%22java%22>Indeed</a>: provides feeds for job search (in this case I set the search parameter to "java"), which include location data in the form of GeoRSS. The cool thing about this data source is that you can visualize the job locations in <a href = https://maps.google.com/maps?f=q&hl=en&q=http://www.indeed.com/opensearch%3Fq%3D%2522java%2522&layer=&ie=UTF8&z=4&om=1&output=classic&dg=feature>Google Maps</a> due to the GeoRSS technology! GeoRSS allow you to gain a quick visualisation by copying the URL of the GeoRSS feed into the search box in Google Maps.</li>
+				<li> <a href = https://api.instagram.com/v1/media/popular?client_id=12f944cc24b14a50a5f379e64bf26c1a&access_token=212135500.12f944c.bffb82d404e44f3aa7fd892152d4e1d0>Instagram</a>: provides feeds for the current most popular pictures on Instagram, which include location data in the form of JSONP.</li>
+				<li> <a href = http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson>USGS Earthquake Hazards Program</a>: provides feeds for all the earthquakes in the US in the past hour, which include location data in the form of GeoJSON. It is updated every minute. </li>     
+		    	<li> <a href = http://ptwc.weather.gov/feeds/ptwc_rss_pacific.xml>Datacasting</a>: provides feeds for tsunami warnings and information for Pacific Ocean countries, which include location data in the form of GeoRSS. </li> </li>
+				<li> <a href = http://info.geonet.org.nz/display/appdata/Volcanic+Alert+Levels+and+Aviation+Colour+Codes>GeoNet</a>: provides feeds for the Volcanic Alert Level for each volcanic centre in New Zealand, which include location data in the form of GeoJSON. </li>
+				<p> <i> Even if I was given the OK for all the previous sources by the instructors in Piazza, I would like to include another data source I found since I think it could be better than the last two of the list (and prove that I indeed looked for geodata sources!). The reason for which I didn't include it is because I already had one for earthquakes and I didn't want to repeat myself. But I found it and I think it's good too, so here it is: </i> </p>
+		    	<li> <a href = http://www.bgs.ac.uk/feeds/SchoolSeismology.xml>BGS School Seismology</a>: provides feeds for the latest 20 earthquakes recorded by the BGS School Seismology project, which include location data in the form of GeoRSS. </li>
+			</ol>	    
+		</div>
+   
+		<!-- DATA PARSING -->
+		<div class="content">
+			<h2> Data parsing </h3>
+			<p> In this section I will be describing how I accomplished the data parsing for the different data sources which are displayed below in this website. For the purpose of presenting the feeds in the website I have picked the first three sources, as they use different techniques (XML, JSON and JSONP). Owing to this, I will be explaining how I parsed and manipulated each of them using jQuery according to where they come from. All the functionality mentioned below can be found in the 'myJavascript.js' file. </p>
+
+			<ul style="list-style-type:square">
+				<li> <b>INDEED</b>: it is the job search feed and it is provided in GeoRSS, a type of XML. The data format is as follows: <br/>
+					<ul>
+						<li>object<ul>
+							<li>rss<ul>
+								<li>channel: link, title </li>
+								<li>description </li>
+								<li>copyright </li>
+								<li>item<ul>
+									<li>title </li>
+									<li>link  </li>
+									<li>pubDate </li>
+									<li>description </li>
+								<li>georss
+								</ul></li>
+							</ul></li>
+						</ul></li>
+					</ul>
+				In order to deal with it, first of all I made an AJAX call inside the 'myReadyFunction' (I used the proxy to surpass the security constraints) indicating that in case of success the 'myJobParser' function should be called; 'myBadLoadFunction' otherwise. <br/>
+				'myJobParser' receives the data from the XML feed (that has been parsed by jQuery) and, in turn, finds each 'item' (the XML document is organized in items, each of which contain the information for each job offer) and call with it the 'myJobHelper' function to assist it in presenting the information. <br/>
+				'myJobHelper' receives each 'item' in the document and, for each of them, it first extracts the relevant information storing it in variables (when storing the data extracted from the feed, it is first passed to a sanitizer function, called 'escapeText', as a security measure). The information extracted is: title, link, date, description and coordinates. Then, it constructs a set of strings to display that information and, finally, creates a HTML code to add a responsive row with three columns (each of which contain part of that information via the previously created strings), which is appended to the HTML document of the website in the corresponding container (identified by an ID).</li>
+				<li> <b>INSTAGRAM</b>: it is the popular pictures feed and it is provided in JSONP. The data format is as follows: <br/>
+					<ul>
+						<li>object<ul>
+							<li>meta</li>
+							<li>data<ul>
+								<li>attribution</li>
+								<li>tags</li>
+								<li>type</li>
+								<li>location</li>
+								<li>comments</li>
+								<li>filter</li>
+								<li>created_time</li>
+								<li>link</li>
+								<li>likes</li>
+								<li>images: low_resultion, thumbnail, standard_resolution</li>
+								<li>users_in_photo</li>
+								<li>caption: created_time, text, from, id</li>
+								<li>user_has_liked</li>
+								<li>id</li>
+								<li>user: username, website, profile_picture, full-name, bio, id</li>
+							</ul></li>
+						</ul></li>
+					</ul>
+				In order to deal with it, first of all I made an AJAX call inside the 'myReadyFunction' indicating that in case of success the 'myInstaParser' function should be called (as the callback function); 'myBadLoadFunction' otherwise. <br/>
+				'myInstaParser' receives the data from the JSONP feed (that has been parsed by jQuery) and traverses each element in it (called 'data' as well). For each element, it first extracts the relevant information storing it in variables (when storing the data extracted from the feed, it is first passed to a sanitizer function, called 'escapeText', as a security measure). The information extracted is: url of the standard size image, username, url of the profile picture of user, text (describing image) and the coordinates (latitude and longitude). Then, it constructs a set of strings to display that information and, finally, creates a HTML code to add a responsive row with three columns (each of which contain part of that information via the previously created strings), which is appended to the HTML document of the website in the corresponding container (identified by an ID). <br/>
+				NOTE: some Instagram feeds do not contain location. In this case, I check whether it has a location or not and if not I display a message informing that no location was provided.</li>
+				<li> <b>EARTHQUAKES</b>: it is the US earthquakes feed and it is provided in JSON. The data format is as follows: <br/>
+					<ul>
+						<li>object<ul>
+							<li>type</li>
+							<li>metadata</li>
+							<li>features<ul>
+								<li>type</li>
+								<li>properties: mag, place, time, updated, tz, url, detail, felt, cdi, mni, alert, status, automatic, tsunami, sig, net, code, ids, sources, types </li>
+								<li>geometry: type, coordinates, id </li>
+							</ul></li>
+						</ul></li>
+					</ul>
+
+				In order to deal with it, first of all I made an AJAX call inside the 'myReadyFunction' (I used the proxy to surpass the security constraints) indicating that in case of success the 'myQuakeParser' function should be called; 'myBadLoadFunction' otherwise. <br/>
+				'myQuakeParser' receives the data from the JSON feed (that has been parsed by jQuery) and traverses each element in it (called 'features'). For each element, it first extracts the relevant information storing it in variables (when storing the data extracted from the feed, it is first passed to a sanitizer function, called 'escapeText', as a security measure). The information extracted is: magnitude, place and time. Then, it constructs a set of strings to display that information and, finally, creates a HTML code to add a responsive row with three columns (each of which contain part of that information via the previously created strings), which is appended to the HTML document of the website in the corresponding container (identified by an ID).</li>               
+		    </ul>	
+		</div>
+   
+		<hr/>		
+		
+		<!-- MAPS + FEEDS -->
+		<!-- Earthquake feeds with map-->
+		<div class="container myTable" id="nostack">
+			<div class='row myOutline'>
+				<div class='col-xs-5 text-center' style='width=400px'>
+					<div id="map_canvas1" style="width:400px;height:400px;border:black"></div>
+				</div>
+				<div class='col-xs-7 text-center nav' id="myQuake"> 
+						<div class='row myOutline'>
+							<div class='col-md-4 text-center headRow'> LOCATION </div>
+							<div class='col-md-4 text-center headRow'> TIME </div>
+							<div class='col-md-4 text-center headRow'> DESCRIPTION </div>
+						</div>
+				</div>
+			</div>
+		</div>
+   
+		<hr/>
+
+		<!-- Job feeds with maps -->
+		<div class="container myTable" id="nostack">
+			<div class='row myOutline'>
+				<div class='col-xs-5 text-center'>
+					<div id="map_canvas2" style="width:400px;height:400px;border:black"></div>
+				</div>
+				<div class='col-xs-7 text-center nav' id="myJobs"> 
+						<div class='row myOutline'>
+							<div class='col-md-6 text-center headRow'> LOCATION </div>
+							<!--<div class='col-md-4 text-center headRow'> OFFER </div>-->
+							<div class='col-md-6 text-center headRow'> CONTACT </div>
+						</div>
+				</div>
+			</div>
+		</div>
+		
+		<hr/>
+   
+		<!-- Instagram with maps -->
+		<div class="container myTable" id="nostack">
+			<div class='row myOutline'>
+				<div class='col-xs-5 text-center'>
+					<div id="map_canvas3" style="width:400px;height:400px;border:black"></div>
+				</div>
+				<div class='col-xs-7 text-center nav' id="myInsta"> 
+						<div class='row myOutline'>
+							<div class='col-md-4 text-center headRow'> LOCATION </div>
+							<div class='col-md-4 text-center headRow'> PICTURE </div>
+							<div class='col-md-4 text-center headRow'> INFORMATION </div>
+						</div>
+				</div>
+			</div>
+		</div>
+		
+		<hr/>
+   
+		<footer>
+			<p>&copy; David Garcia Santacruz, 2014</p>
+		</footer>
+	</body>
+</html>

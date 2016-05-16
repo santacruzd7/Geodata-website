@@ -1,0 +1,65 @@
+header {
+	background-color:#000066; 
+	color:#FFFFFF; 
+	text-align:center;
+	padding:30px;
+}
+
+h1 {
+	font-family: Geneva, Impact, sans-serif;
+	font-weight: normal;
+	font-size: 400%;
+}
+
+h2{
+    text-align:center;
+	color: #000066;
+	font-family: Georgia, Lucida Bright, serif;
+    font-weight: bold;
+}
+
+h3{
+    text-align:center;
+	color: #000066; 
+	font-family: serif;
+    font-weight: bold; 
+    font-style: italic;
+}
+
+.myOutline{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #000066;
+}
+
+.myPadding{
+    padding: 2px;
+}
+
+.myTable {
+	background-color: #ADC2FF
+}
+    
+.headRow{ 
+    background-color: #000066;
+    color: white;
+    font-size: 120%;
+    font-family: Helvetica, Century Gothic, sans-serif;
+	font-weight: bold;
+    padding: 3px
+}
+
+.content{
+    margin: 0px 50px;
+    text-align: justify
+}
+
+.nav{
+    max-height: 400px;
+    overflow-y: auto; 
+}
+
+.container {
+  width: 1050px;
+  max-width: none !important;
+}
